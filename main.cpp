@@ -24,6 +24,7 @@
 #include "pzgeopyramid.h"
 #include "pzgeoprism.h"
 #include "TPZGeoCube.h"
+#include "pzshapelinear.h"
 
 
 // ************************************** (Create meshes: 1D) *****************************************************
@@ -82,7 +83,10 @@ TPZCompMesh * CreateComputationalThreeDHexaMesh(TPZGeoMesh * geometry, int order
 
 void ComputationShapeThreeDHexa(TPZCompMesh * cmesh, int order);
 
+// -----------------------------------(Create meshes: 1D) ---------------------------------------------
 
+
+TPZCompMesh *CreateComputationOneDMesh(TPZGeoMesh * gmesh_OneD,int orderOneD);
 
 
 
@@ -106,79 +110,87 @@ int main()
     REAL size_el = domain/num_el;
     
     TPZGeoMesh * gmesh_OneD = CreateOneDGMesh(num_el, size_el); // function to create the 1D geometric mesh
+//
+//    int order1D = 4; // order of the piecewise polynomial space
+//    TPZCompMesh * cmesh_OneD = CreateComputationalOneDMesh(gmesh_OneD,order1D);
+//
+//    ComputationShapeOneD(cmesh_OneD, order1D);
+//    
+//    
+//    // ********************************** (Create meshes: 2DTri) *****************************************************
+//    
+//
+//    long nnodes = 3; // Number of the nodes
+//    
+//    TPZGeoMesh *gmesh_TwoDTri = CreateTwoDTriGMesh(nnodes, Lx, Ly); // function to create the 2D geometric mesh
+//    
+//    int order2DTri = 1; // order of the piecewise polynomial space
+//    TPZCompMesh * cmesh_TwoDTri = CreateComputationalTwoDTriMesh(gmesh_TwoDTri,order2DTri);
+//    
+//    ComputationShapeTwoDTri(cmesh_TwoDTri, order2DTri);
+//    
+//    // ---------------------------------------------------------------------------------------------------------
+//    
+//    long nnodesqu = 4; // number of divition
+//    
+//    TPZGeoMesh *gmesh_TwoDQuad = CreateTwoDQuadGMesh(nnodesqu, Lx, Ly); // function to create the 2D geometric mesh
+//    
+//    int order2DQuad = 1; // order of the piecewise polynomial space
+//    TPZCompMesh * cmesh_TwoDQuad = CreateComputationalTwoDQuadMesh(gmesh_TwoDQuad,order2DQuad);
+//    
+//    ComputationShapeTwoDQuad(cmesh_TwoDQuad, order2DQuad);
+//    
+//    // ********************************** (Create meshes: 3DTetra) *************************************************
+//
+//    long nnodestetra = 4; // number of divition
+//    
+//    TPZGeoMesh *gmesh_ThreeDTetra = CreateThreeDTetraGMesh(nnodestetra, Lx, Ly, Lz); // create the 3D geometric mesh
+//    
+//    int order3DTetra = 1; // order of the piecewise polynomial space
+//    TPZCompMesh * cmesh_ThreeDTetra = CreateComputationalThreeDTetraMesh(gmesh_ThreeDTetra,order3DTetra);
+//    
+//    ComputationShapeThreeDTetra(cmesh_ThreeDTetra, order3DTetra);
+//    
+//    // -----------------------------------(Create meshes: 3DPyram) ---------------------------------------------
+//
+//    long nnodespyram = 5; // number of divition
+//    
+//    TPZGeoMesh *gmesh_ThreeDPyram = CreateThreeDPyramGMesh(nnodespyram, Lx, Ly, Lz); // create the 3D geometric mesh
+//    
+//    int order3DPyram = 1; // order of the piecewise polynomial space
+//    TPZCompMesh * cmesh_ThreeDPyram = CreateComputationalThreeDPyramMesh(gmesh_ThreeDPyram,order3DPyram);
+//    
+//    ComputationShapeThreeDPyram(cmesh_ThreeDPyram, order3DPyram);
+//    
+//    // -----------------------------------(Create meshes: 3DPrism) ---------------------------------------------
+//
+//    long nnodesprism = 6; // number of divition
+//    
+//    TPZGeoMesh *gmesh_ThreeDPrism = CreateThreeDPrismGMesh(nnodesprism, Lx, Ly, Lz); // create the 3D geometric mesh
+//    
+//    int order3DPrism = 1; // order of the piecewise polynomial space
+//    TPZCompMesh * cmesh_ThreeDPrism = CreateComputationalThreeDPrismMesh(gmesh_ThreeDPrism,order3DPrism);
+//    
+//    ComputationShapeThreeDPrism(cmesh_ThreeDPrism, order3DPrism);
+//    
+//    // -----------------------------------(Create meshes: 3DHexa) ---------------------------------------------
+//
+//    long nnodeshexa = 8; // number of divition
+//    
+//    TPZGeoMesh *gmesh_ThreeDHexa = CreateThreeDHexaGMesh(nnodeshexa, Lx, Ly, Lz); // create the 3D geometric mesh
+//    
+//    int order3DHexa = 1; // order of the piecewise polynomial space
+//    TPZCompMesh * cmesh_ThreeDHexa = CreateComputationalThreeDHexaMesh(gmesh_ThreeDHexa,order3DHexa);
+//    
+//    ComputationShapeThreeDHexa(cmesh_ThreeDHexa, order3DHexa);
+//
     
-    int order1D = 1; // order of the piecewise polynomial space
-    TPZCompMesh * cmesh_OneD = CreateComputationalOneDMesh(gmesh_OneD,order1D);
+    
+    // ************************************** (Create meshes: 1D) *****************************************************
 
-    ComputationShapeOneD(cmesh_OneD, order1D);
     
-    
-    // ********************************** (Create meshes: 2DTri) *****************************************************
-    
-
-    long nnodes = 3; // Number of the nodes
-    
-    TPZGeoMesh *gmesh_TwoDTri = CreateTwoDTriGMesh(nnodes, Lx, Ly); // function to create the 2D geometric mesh
-    
-    int order2DTri = 1; // order of the piecewise polynomial space
-    TPZCompMesh * cmesh_TwoDTri = CreateComputationalTwoDTriMesh(gmesh_TwoDTri,order2DTri);
-    
-    ComputationShapeTwoDTri(cmesh_TwoDTri, order2DTri);
-    
-    // ---------------------------------------------------------------------------------------------------------
-    
-    long nnodesqu = 4; // number of divition
-    
-    TPZGeoMesh *gmesh_TwoDQuad = CreateTwoDQuadGMesh(nnodesqu, Lx, Ly); // function to create the 2D geometric mesh
-    
-    int order2DQuad = 1; // order of the piecewise polynomial space
-    TPZCompMesh * cmesh_TwoDQuad = CreateComputationalTwoDQuadMesh(gmesh_TwoDQuad,order2DQuad);
-    
-    ComputationShapeTwoDQuad(cmesh_TwoDQuad, order2DQuad);
-    
-    // ********************************** (Create meshes: 3DTetra) *************************************************
-
-    long nnodestetra = 4; // number of divition
-    
-    TPZGeoMesh *gmesh_ThreeDTetra = CreateThreeDTetraGMesh(nnodestetra, Lx, Ly, Lz); // create the 3D geometric mesh
-    
-    int order3DTetra = 1; // order of the piecewise polynomial space
-    TPZCompMesh * cmesh_ThreeDTetra = CreateComputationalThreeDTetraMesh(gmesh_ThreeDTetra,order3DTetra);
-    
-    ComputationShapeThreeDTetra(cmesh_ThreeDTetra, order3DTetra);
-    
-    // -----------------------------------(Create meshes: 3DPyram) ---------------------------------------------
-
-    long nnodespyram = 5; // number of divition
-    
-    TPZGeoMesh *gmesh_ThreeDPyram = CreateThreeDPyramGMesh(nnodespyram, Lx, Ly, Lz); // create the 3D geometric mesh
-    
-    int order3DPyram = 1; // order of the piecewise polynomial space
-    TPZCompMesh * cmesh_ThreeDPyram = CreateComputationalThreeDPyramMesh(gmesh_ThreeDPyram,order3DPyram);
-    
-    ComputationShapeThreeDPyram(cmesh_ThreeDPyram, order3DPyram);
-    
-    // -----------------------------------(Create meshes: 3DPrism) ---------------------------------------------
-
-    long nnodesprism = 6; // number of divition
-    
-    TPZGeoMesh *gmesh_ThreeDPrism = CreateThreeDPrismGMesh(nnodesprism, Lx, Ly, Lz); // create the 3D geometric mesh
-    
-    int order3DPrism = 1; // order of the piecewise polynomial space
-    TPZCompMesh * cmesh_ThreeDPrism = CreateComputationalThreeDPrismMesh(gmesh_ThreeDPrism,order3DPrism);
-    
-    ComputationShapeThreeDPrism(cmesh_ThreeDPrism, order3DPrism);
-    
-    // -----------------------------------(Create meshes: 3DHexa) ---------------------------------------------
-
-    long nnodeshexa = 8; // number of divition
-    
-    TPZGeoMesh *gmesh_ThreeDHexa = CreateThreeDHexaGMesh(nnodeshexa, Lx, Ly, Lz); // create the 3D geometric mesh
-    
-    int order3DHexa = 1; // order of the piecewise polynomial space
-    TPZCompMesh * cmesh_ThreeDHexa = CreateComputationalThreeDHexaMesh(gmesh_ThreeDHexa,order3DHexa);
-    
-    ComputationShapeThreeDHexa(cmesh_ThreeDHexa, order3DHexa);
+    int orderOneD = 1; // order of the piecewise polynomial space
+    TPZCompMesh * ComputationMesh_OneD = CreateComputationOneDMesh(gmesh_OneD,orderOneD);
     
     
     
@@ -297,6 +309,7 @@ void ComputationShapeOneD(TPZCompMesh * cmesh, int order){
     //    int ncel = cmesh->NElements();
     
     TPZCompEl * cel = cmesh->Element(0);
+    cel->SetOrthogonalFunction(pzshape::TPZShapeLinear::Chebyshev);
     TPZInterpolationSpace * inteporlated_el = dynamic_cast< TPZInterpolationSpace * >(cel);
     
     int n_shapes    = inteporlated_el->NShapeF();
@@ -430,7 +443,7 @@ TPZGeoMesh *CreateTwoDTriGMesh(long nnodes, REAL Lx, REAL Ly)
 
 TPZCompMesh * CreateComputationalTwoDTriMesh(TPZGeoMesh * geometry, int order){
     
-    TPZCompMesh * gmesh_TwoDTri = new TPZCompMesh;
+    TPZCompMesh * cmesh_TwoDTri = new TPZCompMesh;
     
     int material_id = 1;
     int dim = geometry->Dimension();
@@ -438,14 +451,14 @@ TPZCompMesh * CreateComputationalTwoDTriMesh(TPZGeoMesh * geometry, int order){
     TPZVec<STATE> sol;
     TPZL2Projection * material = new TPZL2Projection(material_id, dim, nstate, sol);
     
-    gmesh_TwoDTri->SetReference(geometry);
-    gmesh_TwoDTri->InsertMaterialObject(material);
-    gmesh_TwoDTri->SetDefaultOrder(order);
+    cmesh_TwoDTri->SetReference(geometry);
+    cmesh_TwoDTri->InsertMaterialObject(material);
+    cmesh_TwoDTri->SetDefaultOrder(order);
     // States the functions related to the paper http://www.sciencedirect.com/science/article/pii/S0045782509000255
-    gmesh_TwoDTri->SetAllCreateFunctionsContinuous();
-    gmesh_TwoDTri->AutoBuild();
+    cmesh_TwoDTri->SetAllCreateFunctionsContinuous();
+    cmesh_TwoDTri->AutoBuild();
     
-    return gmesh_TwoDTri;
+    return cmesh_TwoDTri;
 }
 
 
@@ -604,7 +617,7 @@ TPZGeoMesh *CreateTwoDQuadGMesh(long nnodesqu, REAL Lx, REAL Ly)
 
 TPZCompMesh * CreateComputationalTwoDQuadMesh(TPZGeoMesh * geometry, int order){
     
-    TPZCompMesh * gmesh_TwoDQuad = new TPZCompMesh;
+    TPZCompMesh * cmesh_TwoDQuad = new TPZCompMesh;
     
     int material_id = 1;
     int dim = geometry->Dimension();
@@ -612,14 +625,14 @@ TPZCompMesh * CreateComputationalTwoDQuadMesh(TPZGeoMesh * geometry, int order){
     TPZVec<STATE> sol;
     TPZL2Projection * material = new TPZL2Projection(material_id, dim, nstate, sol);
     
-    gmesh_TwoDQuad->SetReference(geometry);
-    gmesh_TwoDQuad->InsertMaterialObject(material);
-    gmesh_TwoDQuad->SetDefaultOrder(order);
+    cmesh_TwoDQuad->SetReference(geometry);
+    cmesh_TwoDQuad->InsertMaterialObject(material);
+    cmesh_TwoDQuad->SetDefaultOrder(order);
     // States the functions related to the paper http://www.sciencedirect.com/science/article/pii/S0045782509000255
-    gmesh_TwoDQuad->SetAllCreateFunctionsContinuous();
-    gmesh_TwoDQuad->AutoBuild();
+    cmesh_TwoDQuad->SetAllCreateFunctionsContinuous();
+    cmesh_TwoDQuad->AutoBuild();
     
-    return gmesh_TwoDQuad;
+    return cmesh_TwoDQuad;
 }
 
 
@@ -792,7 +805,7 @@ TPZGeoMesh *CreateThreeDTetraGMesh(long nnodestetra, REAL Lx, REAL Ly, REAL Lz)
 
 TPZCompMesh * CreateComputationalThreeDTetraMesh(TPZGeoMesh * geometry, int order){
     
-    TPZCompMesh * gmesh_ThreeDTetra = new TPZCompMesh;
+    TPZCompMesh * cmesh_ThreeDTetra = new TPZCompMesh;
     
     int material_id = 1;
     int dim = geometry->Dimension();
@@ -800,14 +813,14 @@ TPZCompMesh * CreateComputationalThreeDTetraMesh(TPZGeoMesh * geometry, int orde
     TPZVec<STATE> sol;
     TPZL2Projection * material = new TPZL2Projection(material_id, dim, nstate, sol);
     
-    gmesh_ThreeDTetra->SetReference(geometry);
-    gmesh_ThreeDTetra->InsertMaterialObject(material);
-    gmesh_ThreeDTetra->SetDefaultOrder(order);
+    cmesh_ThreeDTetra->SetReference(geometry);
+    cmesh_ThreeDTetra->InsertMaterialObject(material);
+    cmesh_ThreeDTetra->SetDefaultOrder(order);
     // States the functions related to the paper http://www.sciencedirect.com/science/article/pii/S0045782509000255
-    gmesh_ThreeDTetra->SetAllCreateFunctionsContinuous();
-    gmesh_ThreeDTetra->AutoBuild();
+    cmesh_ThreeDTetra->SetAllCreateFunctionsContinuous();
+    cmesh_ThreeDTetra->AutoBuild();
     
-    return gmesh_ThreeDTetra;
+    return cmesh_ThreeDTetra;
 }
 
 
@@ -1006,7 +1019,7 @@ TPZGeoMesh *CreateThreeDPyramGMesh(long nnodespyram, REAL Lx, REAL Ly, REAL Lz)
 
 TPZCompMesh * CreateComputationalThreeDPyramMesh(TPZGeoMesh * geometry, int order){
     
-    TPZCompMesh * gmesh_ThreeDPyram = new TPZCompMesh;
+    TPZCompMesh * cmesh_ThreeDPyram = new TPZCompMesh;
     
     int material_id = 1;
     int dim = geometry->Dimension();
@@ -1014,14 +1027,14 @@ TPZCompMesh * CreateComputationalThreeDPyramMesh(TPZGeoMesh * geometry, int orde
     TPZVec<STATE> sol;
     TPZL2Projection * material = new TPZL2Projection(material_id, dim, nstate, sol);
     
-    gmesh_ThreeDPyram->SetReference(geometry);
-    gmesh_ThreeDPyram->InsertMaterialObject(material);
-    gmesh_ThreeDPyram->SetDefaultOrder(order);
+    cmesh_ThreeDPyram->SetReference(geometry);
+    cmesh_ThreeDPyram->InsertMaterialObject(material);
+    cmesh_ThreeDPyram->SetDefaultOrder(order);
     // States the functions related to the paper http://www.sciencedirect.com/science/article/pii/S0045782509000255
-    gmesh_ThreeDPyram->SetAllCreateFunctionsContinuous();
-    gmesh_ThreeDPyram->AutoBuild();
+    cmesh_ThreeDPyram->SetAllCreateFunctionsContinuous();
+    cmesh_ThreeDPyram->AutoBuild();
     
-    return gmesh_ThreeDPyram;
+    return cmesh_ThreeDPyram;
 }
 
 
@@ -1234,7 +1247,7 @@ TPZGeoMesh *CreateThreeDPrismGMesh(long nnodesprism, REAL Lx, REAL Ly, REAL Lz)
 
 TPZCompMesh * CreateComputationalThreeDPrismMesh(TPZGeoMesh * geometry, int order){
     
-    TPZCompMesh * gmesh_ThreeDPrism = new TPZCompMesh;
+    TPZCompMesh * cmesh_ThreeDPrism = new TPZCompMesh;
     
     int material_id = 1;
     int dim = geometry->Dimension();
@@ -1242,14 +1255,14 @@ TPZCompMesh * CreateComputationalThreeDPrismMesh(TPZGeoMesh * geometry, int orde
     TPZVec<STATE> sol;
     TPZL2Projection * material = new TPZL2Projection(material_id, dim, nstate, sol);
     
-    gmesh_ThreeDPrism->SetReference(geometry);
-    gmesh_ThreeDPrism->InsertMaterialObject(material);
-    gmesh_ThreeDPrism->SetDefaultOrder(order);
+    cmesh_ThreeDPrism->SetReference(geometry);
+    cmesh_ThreeDPrism->InsertMaterialObject(material);
+    cmesh_ThreeDPrism->SetDefaultOrder(order);
     // States the functions related to the paper http://www.sciencedirect.com/science/article/pii/S0045782509000255
-    gmesh_ThreeDPrism->SetAllCreateFunctionsContinuous();
-    gmesh_ThreeDPrism->AutoBuild();
+    cmesh_ThreeDPrism->SetAllCreateFunctionsContinuous();
+    cmesh_ThreeDPrism->AutoBuild();
     
-    return gmesh_ThreeDPrism;
+    return cmesh_ThreeDPrism;
 }
 
 
@@ -1541,4 +1554,17 @@ void ComputationShapeThreeDHexa(TPZCompMesh * cmesh, int order){
 }
 // ---------------------------------------------------------------------------------------------------------
 
+
+
+TPZCompMesh * CreateComputationOneDMesh(TPZGeoMesh * gmesh_OneD,int orderOneD){
+    
+    TPZCompMesh * ComputationMesh_OneD = new TPZCompMesh;
+    
+    std::string name("Commesh OneDMesh"); // Computation mesh name
+    ComputationMesh_OneD->SetName(name);
+    
+
+    return ComputationMesh_OneD;
+
+}
 
